@@ -1,5 +1,9 @@
+var srs = require("secure-random-string");
+
 const rootUserFactory = require("../models/factories/userRoot.factory");
+const iamUserFactory = require("../models/factories/userIAM.factory");
 const rootUserRepository = require("../models/repositories/userRoot.repository");
+const iamUserRepository = require("../models/repositories/userIAM.repository");
 const { userServiceResponses } = require("../utils/responses");
 const hashingManager = require("../utils/hashManager");
 
@@ -33,10 +37,8 @@ async function registerIAM(newUserIAM, userRootId) {
         userRootId
     );
     if (isUsernameExist) {
-        return authResponses.registerAlreadyUsername();
+        return userServiceResponses.registerAlreadyUsername();
     }
-
-    console.log(isUsernameExist);
 
     const hashedPassword = hashingManager.generateHashPassword(
         newUserIAM.password
@@ -61,7 +63,7 @@ async function registerIAM(newUserIAM, userRootId) {
         iamUserDocument
     );
 
-    return authResponses.registerSuccess(newUserIAM);
+    return userServiceResponses.registerSuccess(newUserIAM);
 }
 
 async function checkUsernameRootExist(username) {

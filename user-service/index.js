@@ -1,7 +1,7 @@
 const express = require("express");
 var cors = require("cors");
 const logger = require("morgan");
-const connectDB = require("./configs/db");
+const connectDB = require("./utils/db");
 
 const app = express();
 

@@ -11,19 +11,21 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(logger("dev"));
-
+const PORT = process.env.PORT || 3001;
 connectDB();
 
 app.get("/", (req, res) => {
-    return res.end("Home");
+    res.json({
+        message: "API User Service is running!"
+    });
 });
 
 app.use("/api/v1/users", require("./routes/users.route"));
 
-app.listen(process.env.PORT || 3001, () =>
+app.listen(PORT, () =>
     console.log(
         `User service is running at http://localhost:${
-            process.env.PORT || 3001
+            PORT
         }`
     )
 );

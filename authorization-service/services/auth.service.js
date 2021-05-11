@@ -29,9 +29,10 @@ async function loginRoot(user) {
     if (!isValidatePassword) {
         return authResponses.loginNotCorrectPassword();
     }
-    console.log("login successful")
+    // console.log(userDocument.username)
     var token = tokenManager.generateAccessToken({
         userId: userDocument._id,
+        userName:userDocument.username,
         permission: PERMISSION.FULL_ACCESS,
     });
 

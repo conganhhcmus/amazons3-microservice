@@ -21,7 +21,7 @@ async function loginRoot(user) {
     }
 
     const userDocument = await rootUserFactory.findByUsername(username);
-
+    console.log(userDocument.password);
     const isValidatePassword = hashingManager.checkValidPassword(
         password,
         userDocument.password
@@ -29,7 +29,7 @@ async function loginRoot(user) {
     if (!isValidatePassword) {
         return authResponses.loginNotCorrectPassword();
     }
-
+    console.log("login successful")
     var token = tokenManager.generateAccessToken({
         userId: userDocument._id,
         permission: PERMISSION.FULL_ACCESS,

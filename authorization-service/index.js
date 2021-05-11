@@ -15,7 +15,9 @@ app.use(logger("dev"));
 connectDB();
 
 app.get("/", (req, res) => {
-    return res.end("Home");
+    res.json({
+        message: "API Authorization Service is running!"
+    });
 });
 
 app.use("/api/v1/auth", require("./routes/auth.route"));

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+const {jwtKey} = require("../configs/JWT.config");
 module.exports = function (req, res, next) {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
@@ -9,8 +9,9 @@ module.exports = function (req, res, next) {
             msg: "Chưa đăng nhập",
         });
     }
+    console.log(token);
 
-    jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, result) => {
+    jwt.verify(token, jwtKey, async (err, result) => {
         if (err || !result) {
             return res.status(401).json({ msg: "Token không hợp lệ" });
         }

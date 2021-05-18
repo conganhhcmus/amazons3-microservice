@@ -27,46 +27,48 @@ describe('Test Authorzition Serveice', function () {
             });
     });
 
-    it('login Root user true on /api/v1/auth/login-root POST' ,function (done) {
-        chai.request(server)
-            .post('/api/v1/auth/login-root')
-            .send({'username': 'admin', 'password': 'admin'})
-            .end(function(err, res){
-                res.should.have.status(200);
-                res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('accessToken');
-                done();
-            });
-    });
-
-    it('login Root user false password on /api/v1/auth/login-root POST' ,function (done) {
-        chai.request(server)
-            .post('/api/v1/auth/login-root')
-            .send({'username': 'admin', 'password': 'admin1'})
-            .end(function(err, res){
-                res.should.have.status(200);
-                res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('errorCode');
-                res.body.errorCode.should.equal('login_fail_password');
-                done();
-            });
-    });
-
-    it('login Root user false username on /api/v1/auth/login-root POST' ,function (done) {
-        chai.request(server)
-            .post('/api/v1/auth/login-root')
-            .send({'username': 'admin1', 'password': 'admin'})
-            .end(function(err, res){
-                res.should.have.status(200);
-                res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.have.property('errorCode');
-                res.body.errorCode.should.equal('login_fail_username');
-                done();
-            });
-    });
-
-
+    describe('Test login Root user API', function () {
+        it('login Root user true on /api/v1/auth/login-root POST' ,function (done) {
+            chai.request(server)
+                .post('/api/v1/auth/login-root')
+                .send({'username': 'admin', 'password': 'admin'})
+                .end(function(err, res){
+                    res.should.have.status(200);
+                    res.should.be.json;
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('accessToken');
+                    done();
+                });
+        });
+    
+        it('login Root user false password on /api/v1/auth/login-root POST' ,function (done) {
+            chai.request(server)
+                .post('/api/v1/auth/login-root')
+                .send({'username': 'admin', 'password': 'admin1'})
+                .end(function(err, res){
+                    res.should.have.status(200);
+                    res.should.be.json;
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('errorCode');
+                    res.body.errorCode.should.equal('login_fail_password');
+                    done();
+                });
+        });
+    
+        it('login Root user false username on /api/v1/auth/login-root POST' ,function (done) {
+            chai.request(server)
+                .post('/api/v1/auth/login-root')
+                .send({'username': 'admin1', 'password': 'admin'})
+                .end(function(err, res){
+                    res.should.have.status(200);
+                    res.should.be.json;
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('errorCode');
+                    res.body.errorCode.should.equal('login_fail_username');
+                    done();
+                });
+        });
+    
+    
+    })
 })

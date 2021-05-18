@@ -21,7 +21,7 @@ async function loginRoot(user) {
     }
 
     const userDocument = await rootUserFactory.findByUsername(username);
-    console.log(userDocument.password);
+    //console.log(userDocument.password);
     const isValidatePassword = hashingManager.checkValidPassword(
         password,
         userDocument.password

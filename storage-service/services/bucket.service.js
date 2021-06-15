@@ -1,4 +1,6 @@
 const bucketModel = require('../models/bucket.model')
+const objectModel = require('../models/object.model')
+const uploadFile = require("../middlewares/upload.mdw");
 
 module.exports = {
     async getAll (req, res) 
@@ -20,13 +22,41 @@ module.exports = {
         })
     },
 
+    async indexBucket(req, res){
+        const bucket_id = req.params.id
+        const objects = await objectModel.getByBucketWithParent(bucket_id,null)
+        
+        return res.status(200).json({
+            data: objects
+        })
+    },
+
+    async getByFolder(req, res){
+        const bucket_id = req.params.id
+        const folder = req.params.folder
+
+        const object = await objectModel.getById(folder)
+        if(object.type != "folder")
+            return res.status(400).json({
+                message: "Object is no folder"
+            })
+        
+        const objects = await objectModel.getByBucketWithParent(bucket_id, folder)
+        return res.status(200).json({
+            data: objects
+        })
+
+    },
+
     async deleteBucket(req, res){
         const bucket = await bucketModel.getById(req.params.id)
         if(bucket === null)
             return res.json({
                 message: "Bucket is not exist"
             })
+
         const result = await bucketModel.delete(req.params.id)
+
         if(result)
             return res.status(201).json({
                 message: "success",
@@ -34,5 +64,56 @@ module.exports = {
         return res.status(400).json({
             message: "fail"
         })
+    },
+
+    async addObject(req, res){
+        return res.json(req.body)
+        // try {
+        //     let object = {}
+        //     object.bucket_id = req.body.bucket_id
+        //     object.type = req.body.type
+        //     console.log(req.body.type)
+        //     if(req.body.parent)
+        //         object.parent = req.body.parent
+        //     else
+        //         object.parent = null
+
+        //     if(req.body.type == "file")
+        //     {
+        //         if (req.file == undefined) {
+        //             return res.status(400).send({ message: "Please upload a file!" });
+        //           }
+        //         await uploadFile(req, res);
+        //         console.log(req.file)
+                
+        //         object.name = req.file.originalname
+        //         object.path = `/resources/static/assets/uploads/${req.file.originalname}`
+        //         object.size = req.file.size
+        //     }
+            
+        //     if(req.body.type == "folder")
+        //     {
+        //         object.name = req.body.name
+        //         object.path = null,
+        //         object.size = null
+        //     }
+            
+        //     await objectModel.add(object)
+
+        //     res.status(200).send({
+        //         message: "Add object success",
+        //         data: object
+        //     });
+        //   } catch (err) {
+        //     if (err.code == "LIMIT_FILE_SIZE") {
+        //         return res.status(500).send({
+        //           message: "File size cannot be larger than 2MB!",
+        //         });
+        //       }
+
+        //     res.status(500).send({
+        //       message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        //     });
+        //   }
     }
 }

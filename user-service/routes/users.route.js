@@ -19,13 +19,13 @@ router.post("/register-iam", authMiddleware, async (req, res) => {
     res.status(jsonResponse.statusCode).json(jsonResponse);
 });
 
-router.get("/iam-users/", authMiddleware, async (req, res) => {
+router.get("/root-users/childs", authMiddleware, async (req, res) => {
     const jsonResponse = await userService.getIAM(req.user.userId);
 
     res.status(jsonResponse.statusCode).json(jsonResponse);
 });
 
-router.post("/iam-users/", authMiddleware, async (req, res) => {
+router.put("/root-users/childs", authMiddleware, async (req, res) => {
     const jsonResponse = await userService.setPermission(req.body);
 
     res.status(jsonResponse.statusCode).json(jsonResponse);

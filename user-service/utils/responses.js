@@ -33,7 +33,14 @@ const userServiceResponses = {
             msg: "Update fail",
             error: ERROR_CODE.UPDATE_FAIL,
         };
-    }
+    },
+
+    deleteSuccess() {
+        return {
+            statusCode: 200,
+            error: ERROR_CODE.DELETE_SUCCESS,
+        };
+    },
 };
 
 module.exports = {

@@ -11,6 +11,13 @@ const RootUserFactory = {
             { $push: { iamUsers: iamUser } }
         );
     },
+
+    findByIdAndDeleteIAM: (id, iamUser) => {
+        return RootUserModel.findOneAndUpdate(
+            { _id: id },
+            { $pull: { iamUsers: iamUser } }
+        );
+    },
 };
 
 module.exports = RootUserFactory;

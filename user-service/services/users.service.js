@@ -12,6 +12,7 @@ const userService = {
     registerIAM,
     getIAM,
     setPermission,
+    deleteIAM,
 };
 
 async function registerRoot(user) {
@@ -109,6 +110,12 @@ async function setPermission(newPermission) {
     const newIAMUser = await iamUserFactory.findById(newPermission.id);
 
     return userServiceResponses.updateSuccess(newIAMUser);
+}
+
+async function deleteIAM(userRootId, iamId) {
+    await iamUserRepository.findByIdAndDelete(iamId);
+    await rootUserRepository.findByIdAndDeleteIAM(userRootId, iamId);
+    return userServiceResponses.deleteSuccess(newIAMUser);
 }
 
 module.exports = userService;

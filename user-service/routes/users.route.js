@@ -31,4 +31,13 @@ router.put("/root-users/childs", authMiddleware, async (req, res) => {
     res.status(jsonResponse.statusCode).json(jsonResponse);
 });
 
+router.delete("/root-users/childs", authMiddleware, async (req, res) => {
+    const jsonResponse = await userService.deleteIAM(
+        req.user.userId,
+        req.body.id
+    );
+
+    res.status(jsonResponse.statusCode).json(jsonResponse);
+});
+
 module.exports = router;

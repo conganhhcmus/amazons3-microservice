@@ -10,6 +10,10 @@ const IAMUserFactory = {
             { $set: { permission: permission }}
         );
     },
+
+    findByIdAndDelete: (id) => {
+        return IAMUserModel.findByIdAndRemove(id).exec();
+    },
 };
 
 module.exports = IAMUserFactory;

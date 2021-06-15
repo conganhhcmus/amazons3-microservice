@@ -10,6 +10,7 @@ const hashingManager = require("../utils/hashManager");
 const userService = {
     registerRoot,
     registerIAM,
+    getIAM,
 };
 
 async function registerRoot(user) {
@@ -89,6 +90,12 @@ async function checkIAMUsernameExist(username, rootId) {
     }
 
     return result;
+}
+
+async function getIAM(userRootId) {
+    const IAMUser = await iamUserRepository.findAllByRootId(userRootId);
+
+    return userServiceResponses.getSuccess(IAMUser);
 }
 
 module.exports = userService;

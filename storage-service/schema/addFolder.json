@@ -1,0 +1,15 @@
+{
+    "required": [
+      "bucket_id",
+      "name"
+    ],
+    "additionalProperties": true,
+    "properties": {
+      "bucket_id": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "string"
+      }
+    }
+  }

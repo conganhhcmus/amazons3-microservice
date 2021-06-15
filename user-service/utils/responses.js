@@ -14,6 +14,12 @@ const userServiceResponses = {
             error: ERROR_CODE.REGISTER_ALREADY_USERNAME,
         };
     },
+    getSuccess(user) {
+        return {
+            statusCode: 201,
+            user: user,
+        };
+    },
 };
 
 module.exports = {

@@ -25,7 +25,7 @@ router.get("/iam-users/", authMiddleware, async (req, res) => {
     res.status(jsonResponse.statusCode).json(jsonResponse);
 });
 
-router.post("/iam-users/", async (req, res) => {
+router.post("/iam-users/", authMiddleware, async (req, res) => {
     const jsonResponse = await userService.setPermission(req.body);
 
     res.status(jsonResponse.statusCode).json(jsonResponse);

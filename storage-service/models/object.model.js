@@ -1,4 +1,4 @@
-const db = require('../utils/db')
+const db = require('../utils/dbConfig')
 const table_name = 'object'
 
 module.exports = {

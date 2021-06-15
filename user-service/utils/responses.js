@@ -20,6 +20,20 @@ const userServiceResponses = {
             user: user,
         };
     },
+    updateSuccess(user) {
+        return {
+            statusCode: 201,
+            user: user,
+        };
+    },
+
+    updateFail() {
+        return {
+            statusCode: 200,
+            msg: "Update fail",
+            error: ERROR_CODE.UPDATE_FAIL,
+        };
+    }
 };
 
 module.exports = {

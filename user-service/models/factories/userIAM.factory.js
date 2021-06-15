@@ -7,6 +7,12 @@ const IAMUserFactory = {
     findByUsernameAndOwnerId: (username, ownerId) => {
         return IAMUserModel.findOne({ username, owner: ownerId });
     },
+    findById: (id) => {
+        return IAMUserModel.findById({ _id: id });
+    },
+    findAllByRootId: (rootId) => {
+        return IAMUserModel.find({owner: rootId}).exec();;
+    }
 };
 
 module.exports = IAMUserFactory;

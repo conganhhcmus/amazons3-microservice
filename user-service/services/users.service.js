@@ -11,6 +11,7 @@ const userService = {
     registerRoot,
     registerIAM,
     getIAM,
+    setPermission,
 };
 
 async function registerRoot(user) {
@@ -93,9 +94,21 @@ async function checkIAMUsernameExist(username, rootId) {
 }
 
 async function getIAM(userRootId) {
-    const IAMUser = await iamUserRepository.findAllByRootId(userRootId);
+    const IAMUser = await iamUserFactory.findAllByRootId(userRootId);
 
     return userServiceResponses.getSuccess(IAMUser);
+}
+
+async function setPermission(newPermission) {
+    if (newPermission.permission < -1 || newPermission.permission > 1 && newPermission.permission !== 99){
+        return userServiceResponses.updateFail();
+    }
+
+    await iamUserRepository.findByIdAndUpdatePermission(newPermission.id, newPermission.permission);
+
+    const newIAMUser = await iamUserFactory.findById(newPermission.id);
+
+    return userServiceResponses.updateSuccess(newIAMUser);
 }
 
 module.exports = userService;

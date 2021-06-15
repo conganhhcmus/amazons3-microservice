@@ -1,7 +1,7 @@
 {
     "required": [
       "name",
-      "region_id",
+      "region",
       "user_id"
     ],
     "additionalProperties": false,
@@ -10,8 +10,9 @@
         "type": "string",
         "maxLength": 100
       },
-      "region_id": {
-        "type": "integer"
+      "region": {
+        "type": "string",
+        "maxLength": 100
       },
       "user_id": {
         "type": "integer"

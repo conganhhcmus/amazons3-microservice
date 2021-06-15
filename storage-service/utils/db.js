@@ -13,9 +13,14 @@ module.exports = function (dbEngine) {
         pool: { min: 0, max: 50 }
     }
     if(dbEngine == "production")
+      // return {
+      //   client: 'pg',
+      //   connection: process.env.DATABASE_URL,
+      //   pool: { min: 0, max: 50 }
+      // }
       return {
         client: 'pg',
-        connection: process.env.DATABASE_URL,
+        connection: `${process.env.DATABASE_URL}?ssl=true`,
         pool: { min: 0, max: 50 }
       }
 }

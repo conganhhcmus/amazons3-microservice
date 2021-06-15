@@ -13,10 +13,13 @@ module.exports = {
 
     async addBucket(req, res){
         const result = await bucketModel.add(req.body)
-        if(result)
+        if(result){
+            const bucket = await bucketModel.getById(result[0])
             return res.status(201).json({
                 message: "success",
+                data: bucket
             })
+        }
         return res.status(400).json({
             message: "fail"
         })

@@ -75,7 +75,7 @@ module.exports = {
             }
 
             let object = {}
-            object.bucket_id = req.body.bucket_id
+            object.bucket_id = req.params.id
             if(req.body.parent)
                 object.parent = req.body.parent
             else
@@ -107,7 +107,7 @@ module.exports = {
     async addFolder(req, res){
         try {
             let object = {}
-            object.bucket_id = req.body.bucket_id
+            object.bucket_id = req.params.id
             if(req.body.parent)
                 object.parent = req.body.parent
             else

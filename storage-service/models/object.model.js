@@ -17,7 +17,7 @@ module.exports = {
         const objects = await db(table_name).where('bucket_id', bucket_id).where('parent', parent)
         if(objects.length === 0)
             return null
-        return objects[0]
+        return objects
     },
 
     async add(bucket)

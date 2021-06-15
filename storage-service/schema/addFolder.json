@@ -1,14 +1,14 @@
 {
     "required": [
       "bucket_id",
-      "type"
+      "name"
     ],
-    "additionalProperties": false,
+    "additionalProperties": true,
     "properties": {
       "bucket_id": {
         "type": "integer"
       },
-      "type": {
+      "name": {
         "type": "string"
       }
     }

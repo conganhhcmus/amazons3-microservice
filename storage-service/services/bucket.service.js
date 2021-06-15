@@ -66,54 +66,68 @@ module.exports = {
         })
     },
 
-    async addObject(req, res){
-        return res.json(req.body)
-        // try {
-        //     let object = {}
-        //     object.bucket_id = req.body.bucket_id
-        //     object.type = req.body.type
-        //     console.log(req.body.type)
-        //     if(req.body.parent)
-        //         object.parent = req.body.parent
-        //     else
-        //         object.parent = null
+    async upload(req, res){
+        try {
+            await uploadFile(req, res);
 
-        //     if(req.body.type == "file")
-        //     {
-        //         if (req.file == undefined) {
-        //             return res.status(400).send({ message: "Please upload a file!" });
-        //           }
-        //         await uploadFile(req, res);
-        //         console.log(req.file)
-                
-        //         object.name = req.file.originalname
-        //         object.path = `/resources/static/assets/uploads/${req.file.originalname}`
-        //         object.size = req.file.size
-        //     }
-            
-        //     if(req.body.type == "folder")
-        //     {
-        //         object.name = req.body.name
-        //         object.path = null,
-        //         object.size = null
-        //     }
-            
-        //     await objectModel.add(object)
+            if (req.file == undefined) {
+                return res.status(400).send({ message: "Please upload a file!" });
+            }
 
-        //     res.status(200).send({
-        //         message: "Add object success",
-        //         data: object
-        //     });
-        //   } catch (err) {
-        //     if (err.code == "LIMIT_FILE_SIZE") {
-        //         return res.status(500).send({
-        //           message: "File size cannot be larger than 2MB!",
-        //         });
-        //       }
+            let object = {}
+            object.bucket_id = req.body.bucket_id
+            if(req.body.parent)
+                object.parent = req.body.parent
+            else
+                object.parent = null
+            object.name = req.file.originalname
+            object.path = `/resources/static/assets/uploads/${req.file.originalname}`
+            object.size = req.file.size
+            object.type = "file"
 
-        //     res.status(500).send({
-        //       message: `Could not upload the file: ${req.file.originalname}. ${err}`,
-        //     });
-        //   }
+            await objectModel.add(object)
+
+            res.status(200).send({
+                message: "Upload file success",
+                data: object
+            });
+          } catch (err) {
+            if (err.code == "LIMIT_FILE_SIZE") {
+                return res.status(500).send({
+                  message: "File size cannot be larger than 2MB!",
+                });
+              }
+
+            res.status(500).send({
+              message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+            });
+          }
+    },
+
+    async addFolder(req, res){
+        try {
+            let object = {}
+            object.bucket_id = req.body.bucket_id
+            if(req.body.parent)
+                object.parent = req.body.parent
+            else
+                object.parent = null
+            object.name = req.body.name
+            object.path = null
+            object.size = null
+            object.type = "folder"
+
+            await objectModel.add(object)
+
+            res.status(200).send({
+                message: "Create folder success",
+                data: object
+            });
+        } catch (err) {
+            res.status(500).send({
+              message: `Could not create folder`,
+              error: err
+            });
+        }
     }
 }

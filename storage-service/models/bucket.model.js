@@ -1,4 +1,4 @@
-const db = require('../utils/db')
+const db = require('../utils/dbConfig')
 const table_name = 'bucket'
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
 
     async add(bucket)
     {
-        return db(table_name).insert(bucket)
+        return db(table_name).insert(bucket).returning('id')
     },
 
     async delete(id) {

@@ -20,6 +20,13 @@ module.exports = {
         return objects
     },
 
+    async getByBucket(bucket_id){
+        const objects = await db(table_name).where('bucket_id', bucket_id)
+        if(objects.length === 0)
+            return null
+        return objects
+    },
+
     async add(bucket)
     {
         return db(table_name).insert(bucket)

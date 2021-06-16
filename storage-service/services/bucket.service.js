@@ -57,7 +57,10 @@ module.exports = {
             return res.json({
                 message: "Bucket is not exist"
             })
-
+        const objects = await objectModel.getByBucket(req.params.id)
+        objects.forEach(async (object, index) => {
+            await objectModel.delete(object.id)
+        })
         const result = await bucketModel.delete(req.params.id)
 
         if(result)
@@ -84,7 +87,7 @@ module.exports = {
             else
                 object.parent = null
             object.name = req.file.originalname
-            object.path = `/resources/static/assets/uploads/${req.file.originalname}`
+            object.path = `/static/assets/uploads/${req.file.originalname}`
             object.size = req.file.size
             object.type = "file"
 

@@ -115,7 +115,7 @@ async function setPermission(newPermission) {
 async function deleteIAM(userRootId, iamId) {
     await iamUserRepository.findByIdAndDelete(iamId);
     await rootUserRepository.findByIdAndDeleteIAM(userRootId, iamId);
-    return userServiceResponses.deleteSuccess(newIAMUser);
+    return userServiceResponses.deleteSuccess();
 }
 
 module.exports = userService;

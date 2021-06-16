@@ -15,7 +15,7 @@
         "maxLength": 100
       },
       "user_id": {
-        "type": "integer"
+        "type": "string"
       }
     }
   }

@@ -17,6 +17,25 @@ module.exports = {
         return res.json({
             data: object
         })
+    },
+
+    async deleteObject (req, res)
+    {
+        const object = await objectModel.getById(req.params.id)
+        if(object === null)
+            return res.json({
+                message: "Object is not exist"
+            })
+            
+        const result = await objectModel.delete(req.params.id)
+
+        if(result)
+            return res.status(201).json({
+                message: "success",
+            })
+        return res.status(400).json({
+            message: "fail"
+        })
     }
     
 }

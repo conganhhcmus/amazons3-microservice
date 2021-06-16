@@ -88,7 +88,7 @@ module.exports = {
             else
                 object.parent = null
             object.name = req.file.originalname
-            object.path = `/static/assets/uploads/${req.file.originalname}`
+            object.path = `/static/assets/uploads/${req.params.id}/${req.file.originalname}`
             object.size = req.file.size
             object.type = "file"
 

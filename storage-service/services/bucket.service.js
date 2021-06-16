@@ -11,6 +11,7 @@ module.exports = {
         })
     },
 
+    
     async addBucket(req, res){
         const result = await bucketModel.add(req.body)
         if(result){

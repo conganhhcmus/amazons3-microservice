@@ -4,6 +4,8 @@ const hashingManager = require("../utils/hashManager");
 const tokenManager = require("../utils/tokenManager");
 const PERMISSION = require("../constants/permission");
 const { authResponses } = require("../utils/responses");
+const IAMUserRepository = require("../models/repositories/userIAM.repository");
+const RootUserRepository = require("../models/repositories/userRoot.repository");
 
 const userService = {
   loginRoot,
@@ -36,6 +38,7 @@ async function loginRoot(user) {
     permission: PERMISSION.FULL_ACCESS,
   });
 
+  await RootUserRepository.updateLastLogged(userDocument._id);
   return authResponses.loginSuccess(token, userDocument);
 }
 
@@ -70,7 +73,7 @@ async function loginIAM(user) {
     userId: userDocument._id,
     permission: userDocument.permission,
   });
-
+  await IAMUserRepository.updateLastLogged(userDocument._id);
   return authResponses.loginSuccess(token, userDocument);
 }
 

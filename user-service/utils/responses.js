@@ -16,8 +16,14 @@ const userServiceResponses = {
   },
   getSuccess(user) {
     return {
-      statusCode: 201,
-      user: user,
+      statusCode: 200,
+      user,
+    };
+  },
+  getUsersSuccess(users) {
+    return {
+      statusCode: 200,
+      users,
     };
   },
   updateSuccess(user) {

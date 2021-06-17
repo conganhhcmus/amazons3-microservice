@@ -97,7 +97,7 @@ async function checkIAMUsernameExist(username, rootId) {
 async function getIAM(userRootId) {
   const IAMUser = await iamUserFactory.findAllByRootId(userRootId);
 
-  return userServiceResponses.getSuccess(IAMUser);
+  return userServiceResponses.getUsersSuccess(IAMUser);
 }
 
 async function setPermission(newPermission) {

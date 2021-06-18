@@ -129,7 +129,8 @@ module.exports = {
             object.file_type = null
             object.user_id = req.body.user_id
 
-            await objectModel.add(object)
+            const newObjectId = await objectModel.add(object)
+            object.id = newObjectId[0]
 
             res.status(200).send({
                 message: "Create folder success",

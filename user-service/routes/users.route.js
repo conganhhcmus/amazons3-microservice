@@ -23,7 +23,7 @@ router.get("/root-users/child", authMiddleware, async (req, res) => {
 });
 
 router.put("/root-users/child", authMiddleware, async (req, res) => {
-  const jsonResponse = await userService.setPermission(req.body);
+  const jsonResponse = await userService.updateUserIAM(req.body);
 
   res.status(jsonResponse.statusCode).json(jsonResponse);
 });

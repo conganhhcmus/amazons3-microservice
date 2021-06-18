@@ -11,7 +11,7 @@ const userService = {
   registerRoot,
   registerIAM,
   getIAM,
-  setPermission,
+  updateUserIAM,
   deleteIAM,
   getUserByKeys,
 };
@@ -100,20 +100,29 @@ async function getIAM(userRootId) {
   return userServiceResponses.getUsersSuccess(IAMUser);
 }
 
-async function setPermission(newPermission) {
+async function updateUserIAM(newUser) {
   if (
-    newPermission.permission < -1 ||
-    (newPermission.permission > 1 && newPermission.permission !== 99)
+    newUser.permission < -1 ||
+    (newUser.permission > 1 && newUser.permission !== 99)
   ) {
     return userServiceResponses.updateFail();
   }
 
-  await iamUserRepository.findByIdAndUpdatePermission(
-    newPermission.id,
-    newPermission.permission
-  );
-
-  const newIAMUser = await iamUserFactory.findById(newPermission.id);
+  if (newUser.password) {
+    newUser.newpassword = hashingManager.generateHashPassword(newUser.password)
+    await iamUserRepository.findByIdAndUpdate(
+        newUser.id,
+        newUser
+    );
+  }
+  else {
+    await iamUserRepository.findByIdAndUpdatePermission(
+        newUser.id,
+        newUser.permission
+    );
+  }
+  
+  const newIAMUser = await iamUserFactory.findById(newUser.id);
 
   return userServiceResponses.updateSuccess(newIAMUser);
 }

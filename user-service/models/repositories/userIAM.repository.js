@@ -11,6 +11,17 @@ const IAMUserFactory = {
         );
     },
 
+    findByIdAndUpdate: (id, user) => {
+        return IAMUserModel.findOneAndUpdate(
+            { _id: id },
+            { $set: { 
+                permission: user.permission,
+                password: user.newpassword 
+                }
+            }
+        );
+    },
+
     findByIdAndDelete: (id) => {
         return IAMUserModel.findByIdAndRemove(id).exec();
     },

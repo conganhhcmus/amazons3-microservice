@@ -29,7 +29,7 @@ module.exports = {
 
     async add(bucket)
     {
-        return db(table_name).insert(bucket)
+        return db(table_name).insert(bucket).returning('id')
     },
 
     async delete(id) {

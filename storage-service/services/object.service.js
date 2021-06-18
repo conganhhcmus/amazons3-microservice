@@ -14,6 +14,11 @@ module.exports = {
     {
         const id = req.params.id
         const object = await objectModel.getById(id)
+        const parent = await objectModel.getById(object.parent)
+        const bucket = await bucketModel.getById(object.bucket_id)
+        
+        object.parent = parent
+        object.bucket = bucket
         return res.json({
             data: object
         })

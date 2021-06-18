@@ -43,4 +43,10 @@ router.post("/by-keys", async (req, res) => {
   res.status(jsonResponse.statusCode).json(jsonResponse);
 });
 
+router.get("/:id", authMiddleware, async (req, res) => {
+  const jsonResponse = await userService.getUserById(req.params.id);
+
+  res.status(jsonResponse.statusCode).json(jsonResponse);
+});
+
 module.exports = router;

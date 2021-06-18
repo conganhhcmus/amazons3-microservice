@@ -7,6 +7,7 @@ const ERROR_CODE = {
   UPDATE_FAIL: "update_fail",
   DELETE_SUCCESS: "delete_success",
   TOKENS_INVALID: "tokens_invalid",
+  ID_INVALID: "id_invalid",
 };
 
 module.exports = ERROR_CODE;

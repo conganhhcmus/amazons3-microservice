@@ -15,17 +15,13 @@ const PORT = process.env.PORT || 3001;
 connectDB();
 
 app.get("/", (req, res) => {
-    res.json({
-        message: "API User Service is running!"
-    });
+  res.json({
+    message: "API User Service is running!",
+  });
 });
 
 app.use("/api/v1/users", require("./routes/users.route"));
 
 app.listen(PORT, () =>
-    console.log(
-        `User service is running at http://localhost:${
-            PORT
-        }`
-    )
+  console.log(`User service is running at http://localhost:${PORT}`)
 );

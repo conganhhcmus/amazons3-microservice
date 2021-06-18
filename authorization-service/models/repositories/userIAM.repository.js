@@ -1,9 +1,15 @@
 const IAMUserModel = require("../userIAM.model");
 
-const IAMUserFactory = {
-    insertUser: (user) => {
-        return IAMUserModel.create(user);
-    },
+const IAMUserRepository = {
+  insertUser: (user) => {
+    return IAMUserModel.create(user);
+  },
+  updateLastLogged(id) {
+    return IAMUserModel.findOneAndUpdate(
+      { _id: id },
+      { lastLogged: new Date().toLocaleString() }
+    );
+  },
 };
 
-module.exports = IAMUserFactory;
+module.exports = IAMUserRepository;

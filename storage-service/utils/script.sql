@@ -22,3 +22,7 @@ create table object
 );
 
 alter table object add constraint fk_object_bucket foreign key (bucket_id) references bucket(id)
+alter table object add file_type varchar(30) null;
+alter table object add user_id varchar(255) null;
+ALTER TABLE object ALTER COLUMN last_update SET DEFAULT current_timestamp;
+ALTER TABLE bucket ALTER COLUMN last_update SET DEFAULT current_timestamp;

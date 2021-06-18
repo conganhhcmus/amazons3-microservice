@@ -11,6 +11,7 @@ global.__basedir = __dirname;
 var indexRouter = require('./routes/index');
 var bucketRouter = require('./routes/bucket');
 var objectRouter = require('./routes/object');
+var userRouter = require('./routes/user');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'resources')));
 app.use('/', indexRouter);
 app.use('/api/v1/buckets', bucketRouter);
 app.use('/api/v1/objects', objectRouter);
+app.use('/api/v1/users', userRouter);
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -83,17 +83,20 @@ module.exports = {
 
             let object = {}
             object.bucket_id = req.params.id
-            if(req.body.parent)
+            
+            if(req.body.parent && req.body.parent != "null")
                 object.parent = req.body.parent
             else
                 object.parent = null
             object.name = req.file.originalname
-            object.path = `/static/assets/uploads/${req.params.id}/${req.file.originalname}`
+            object.path = `/static/assets/uploads/${req.file.originalname}`
             object.size = req.file.size
             object.type = "file"
+            object.file_type = req.body.file_type
+            object.user_id = req.body.user_id
 
-            await objectModel.add(object)
-
+            const newObjectId = await objectModel.add(object)
+            object.id = newObjectId[0]
             res.status(200).send({
                 message: "Upload file success",
                 data: object
@@ -115,7 +118,7 @@ module.exports = {
         try {
             let object = {}
             object.bucket_id = req.params.id
-            if(req.body.parent)
+            if(req.body.parent && req.body.parent != "null")
                 object.parent = req.body.parent
             else
                 object.parent = null
@@ -123,6 +126,8 @@ module.exports = {
             object.path = null
             object.size = null
             object.type = "folder"
+            object.file_type = null
+            object.user_id = req.body.user_id
 
             await objectModel.add(object)
 

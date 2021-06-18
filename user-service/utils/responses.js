@@ -53,6 +53,12 @@ const userServiceResponses = {
       error: ERROR_CODE.TOKENS_INVALID,
     };
   },
+  getByIdFail() {
+    return {
+      statusCode: 200,
+      error: ERROR_CODE.ID_INVALID,
+    };
+  },
 };
 
 module.exports = {

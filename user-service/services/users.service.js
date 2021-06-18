@@ -14,6 +14,7 @@ const userService = {
   updateUserIAM,
   deleteIAM,
   getUserByKeys,
+  getUserById,
 };
 
 async function registerRoot(user) {
@@ -109,19 +110,15 @@ async function updateUserIAM(newUser) {
   }
 
   if (newUser.password) {
-    newUser.newpassword = hashingManager.generateHashPassword(newUser.password)
-    await iamUserRepository.findByIdAndUpdate(
-        newUser.id,
-        newUser
-    );
-  }
-  else {
+    newUser.newpassword = hashingManager.generateHashPassword(newUser.password);
+    await iamUserRepository.findByIdAndUpdate(newUser.id, newUser);
+  } else {
     await iamUserRepository.findByIdAndUpdatePermission(
-        newUser.id,
-        newUser.permission
+      newUser.id,
+      newUser.permission
     );
   }
-  
+
   const newIAMUser = await iamUserFactory.findById(newUser.id);
 
   return userServiceResponses.updateSuccess(newIAMUser);
@@ -134,18 +131,37 @@ async function deleteIAM(userRootId, iamId) {
 }
 
 async function getUserByKeys({ publicToken, privateToken }) {
-  const user = await findUserByToken(publicToken, privateToken);
+  const user = await findUserByTokens(publicToken, privateToken);
   if (!user) {
     return userServiceResponses.getByTokensFail();
   }
   return userServiceResponses.getSuccess(user);
 }
 
-async function findUserByToken(publicToken, privateToken) {
+async function getUserById(idUser) {
+  const user = await findUserById(idUser);
+  if (!user) {
+    return userServiceResponses.getByIdFail();
+  }
+  return userServiceResponses.getSuccess(user);
+}
+
+async function findUserByTokens(publicToken, privateToken) {
   let user = null;
   user = await iamUserFactory.findByTokens(publicToken, privateToken);
   if (!user) {
     user = await rootUserFactory.findByTokens(publicToken, privateToken);
+  }
+  if (!user) {
+    user = null;
+  }
+  return user;
+}
+async function findUserById(idUser) {
+  let user = null;
+  user = await iamUserFactory.findById(idUser);
+  if (!user) {
+    user = await rootUserFactory.findById(idUser);
   }
   if (!user) {
     user = null;

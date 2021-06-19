@@ -28,10 +28,11 @@ router.put("/root-users/child", authMiddleware, async (req, res) => {
   res.status(jsonResponse.statusCode).json(jsonResponse);
 });
 
-router.delete("/root-users/child", authMiddleware, async (req, res) => {
+router.delete("/root-users/child/:id", authMiddleware, async (req, res) => {
+  const id = req.params.id;
   const jsonResponse = await userService.deleteIAM(
     req.user.userId,
-    req.body.id
+    id
   );
 
   res.status(jsonResponse.statusCode).json(jsonResponse);

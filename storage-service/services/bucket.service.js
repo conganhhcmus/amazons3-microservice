@@ -59,9 +59,12 @@ module.exports = {
                 message: "Bucket is not exist"
             })
         const objects = await objectModel.getByBucket(req.params.id)
-        objects.forEach(async (object, index) => {
-            await objectModel.delete(object.id)
-        })
+        if(objects)
+        {
+            objects.forEach(async (object, index) => {
+                await objectModel.delete(object.id)
+            })
+        }
         const result = await bucketModel.delete(req.params.id)
 
         if(result)

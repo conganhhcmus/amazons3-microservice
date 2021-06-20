@@ -59,7 +59,10 @@ async function loginIAM(user) {
     return authResponses.loginNotExistUsername();
   }
 
-  const userDocument = await iamUserFactory.findByUsername(username);
+  const userDocument = await iamUserFactory.findByUsernameAndOwnerId(
+    username,
+    rootUserDocument._id
+  );
 
   const isValidPassword = hashingManager.checkValidPassword(
     password,

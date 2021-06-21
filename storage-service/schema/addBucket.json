@@ -2,9 +2,10 @@
     "required": [
       "name",
       "region",
-      "user_id"
+      "user_id",
+      "username"
     ],
-    "additionalProperties": false,
+    "additionalProperties": true,
     "properties": {
       "name": {
         "type": "string",
@@ -15,6 +16,9 @@
         "maxLength": 100
       },
       "user_id": {
+        "type": "string"
+      },
+      "username": {
         "type": "string"
       }
     }

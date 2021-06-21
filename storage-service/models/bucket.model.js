@@ -25,7 +25,7 @@ module.exports = {
     async getByUserId (user_id)
     {
         if(user_id != null){
-            const buckets = await db(table_name).where('user_id', user_id)
+            const buckets = await db(table_name).where('user_id', user_id).orWhere("root_id", user_id)
             if(buckets.length === 0)
                 return null;
             return buckets

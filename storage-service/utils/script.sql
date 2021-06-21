@@ -25,4 +25,7 @@ alter table object add constraint fk_object_bucket foreign key (bucket_id) refer
 alter table object add file_type varchar(30) null;
 alter table object add user_id varchar(255) null;
 ALTER TABLE object ALTER COLUMN last_update SET DEFAULT current_timestamp;
+
+alter table bucket add username varchar(255) null;
+alter table bucket add root_id varchar(255) null;
 ALTER TABLE bucket ALTER COLUMN last_update SET DEFAULT current_timestamp;

@@ -11,7 +11,15 @@ module.exports = {
         })
     },
 
-    
+    async getById (req, res) 
+    {
+        const bucket_id = req.params.id
+        const bucket = await bucketModel.getById(bucket_id)
+        return res.status(200).json({
+            data: bucket
+        })
+    },
+
     async addBucket(req, res){
         const result = await bucketModel.add(req.body)
         if(result){

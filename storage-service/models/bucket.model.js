@@ -7,10 +7,10 @@ module.exports = {
     },
 
     async getById(id) {
-        const users = await db(table_name).where('id', id)
-        if(users.length === 0)
+        const buckets = await db(table_name).where('id', id)
+        if(buckets.length === 0)
             return null;
-        return users[0]
+        return buckets[0]
     },
 
     async add(bucket)

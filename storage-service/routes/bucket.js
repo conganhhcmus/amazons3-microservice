@@ -8,6 +8,7 @@ const addFolderSchema = require('../schema/addFolder.json')
 /* GET users listing. */
 router.get('/', bucketService.getAll);
 router.post('/',  validator(addBucketSchema), bucketService.addBucket)
+router.get('/:id/detail', bucketService.getById)
 router.get('/:id/index', bucketService.indexBucket)
 router.get('/:id/:folder', bucketService.getByFolder)
 router.delete('/:id', bucketService.deleteBucket)

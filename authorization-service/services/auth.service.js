@@ -77,6 +77,8 @@ async function loginIAM(user) {
     permission: userDocument.permission,
   });
   await IAMUserRepository.updateLastLogged(userDocument._id);
+  userDocument.password = null;
+  userDocument.owner.password = null;
   return authResponses.loginSuccess(token, userDocument);
 }
 

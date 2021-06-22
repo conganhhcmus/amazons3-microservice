@@ -47,9 +47,11 @@ module.exports = {
     {
         const id = req.params.id
         const object = await objectModel.getById(id)
+        const domain = "https://storage-service-s3.herokuapp.com"
         if(object.type == "file")
         {   
-            const file = `${global.__basedir}/resources${object.path}`
+            //const file = `${global.__basedir}/resources${object.path}`
+            const file = `${domain}${object.path}`
             const result = res.download(file)
             return res.json({
                 message: "download successfully",

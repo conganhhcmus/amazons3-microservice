@@ -96,6 +96,9 @@ module.exports = {
                 { privateToken: privateToken, publicToken: publicToken }
             );
             console.log(users.data.permission);
+            console.log(users.data);
+            console.log(users);
+            
             if (users.data.permission == -1 || users.data.permission == 0)
                 return res.json({
                     message: "User has not permission to upload ",

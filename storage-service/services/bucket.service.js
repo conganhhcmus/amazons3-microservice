@@ -91,11 +91,20 @@ module.exports = {
         try {
             const privateToken = req.body.privateToken || null;
             const publicToken = req.body.publicToken || null;
-            const users = await axios.post(
-                "https://user-service-s3.herokuapp.com/api/v1/users/by-keys",
-                { "privateToken": privateToken, "publicToken": publicToken }
-            );
-
+            const users = await axios({
+                method: "post",
+                url: "https://user-service-s3.herokuapp.com/api/v1/users/by-keys",
+                data: {
+                    privateToken: privateToken,
+                    publicToken: publicToken,
+                },
+            });
+            // const users = await axios.post(
+            //     "https://user-service-s3.herokuapp.com/api/v1/users/by-keys",
+            //     { "privateToken": privateToken, "publicToken": publicToken }
+            // );
+            console.log(privateToken)
+            console.log(publicToken)
             console.log(users.data.permission);
 
             if (users.data.permission == -1 || users.data.permission == 0)

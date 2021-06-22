@@ -29,3 +29,4 @@ ALTER TABLE object ALTER COLUMN last_update SET DEFAULT current_timestamp;
 alter table bucket add username varchar(255) null;
 alter table bucket add root_id varchar(255) null;
 ALTER TABLE bucket ALTER COLUMN last_update SET DEFAULT current_timestamp;
+alter table bucket add created_at timestamp DEFAULT current_timestamp;

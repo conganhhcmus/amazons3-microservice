@@ -1,6 +1,7 @@
 const bucketModel = require('../models/bucket.model')
 const objectModel = require('../models/object.model')
 const uploadFile = require("../middlewares/upload.mdw");
+const axios = require('axios')
 
 module.exports = {
     async getAll (req, res) 
@@ -86,6 +87,15 @@ module.exports = {
 
     async upload(req, res){
         try {
+            const privateToken = req.body.privateToken || null
+            const publicToken = req.body.publicToken || null
+            const users = await axios.post("https://user-service-s3.herokuapp.com/api/v1/users/by-keys"
+                                , {privateToken: privateToken, publicToken: publicToken})
+            if(users.permission == -1 || users.permission == 0)
+                return res.json({
+                    message: "User has not permission to upload "
+                })
+
             await uploadFile(req, res);
 
             if (req.file == undefined) {
@@ -108,6 +118,10 @@ module.exports = {
 
             const newObjectId = await objectModel.add(object)
             object.id = newObjectId[0]
+            
+            const currentDate = new Date();
+            await bucketModel.update(req.params.id,{last_update: currentDate})
+
             res.status(200).send({
                 message: "Upload file success",
                 data: object
@@ -142,6 +156,9 @@ module.exports = {
 
             const newObjectId = await objectModel.add(object)
             object.id = newObjectId[0]
+
+            const currentDate = new Date();
+            await bucketModel.update(req.params.id,{last_update: currentDate})
 
             res.status(200).send({
                 message: "Create folder success",

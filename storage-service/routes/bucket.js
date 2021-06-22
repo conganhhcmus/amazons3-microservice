@@ -4,6 +4,7 @@ const bucketService = require('../services/bucket.service')
 const validator = require('../middlewares/validate.mdw')
 const addBucketSchema = require('../schema/addBucket.json')
 const addFolderSchema = require('../schema/addFolder.json')
+const uploadFileSchema = require('../schema/uploadFile.json')
 
 /* GET users listing. */
 router.get('/', bucketService.getAll);

@@ -52,7 +52,8 @@ module.exports = {
             const file = `${global.__basedir}/resources${object.path}`
             const result = res.download(file)
             return res.json({
-                message: "download successfully"
+                message: "download successfully",
+                data: file
             })
         }
         return res.json({

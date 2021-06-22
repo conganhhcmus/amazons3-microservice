@@ -112,7 +112,7 @@ module.exports = {
             console.log(users.data);
             console.log(users);
 
-            if (users.data.permission == -1 || users.data.permission == 0)
+            if (users.data.user.permission == -1 || users.data.user.permission == 0)
                 return res.json({
                     message: "User has not permission to upload ",
                 });

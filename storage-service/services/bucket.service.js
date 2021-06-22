@@ -89,6 +89,8 @@ module.exports = {
 
     async upload(req, res) {
         try {
+            await uploadFile(req, res);
+
             const privateToken = req.body.privateToken || null;
             const publicToken = req.body.publicToken || null;
             const users = await axios({
@@ -113,7 +115,7 @@ module.exports = {
                     message: "User has not permission to upload ",
                 });
 
-            await uploadFile(req, res);
+            // await uploadFile(req, res);
 
             if (req.file == undefined) {
                 return res

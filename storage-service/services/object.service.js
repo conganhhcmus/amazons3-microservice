@@ -1,5 +1,6 @@
 const bucketModel = require('../models/bucket.model')
 const objectModel = require('../models/object.model')
+const path = require("path");
 
 module.exports = {
     async getAll (req, res) 
@@ -43,23 +44,27 @@ module.exports = {
         })
     },
 
-    async downloadObject(req, res)
+    async downloadObject(req, res, next)
     {
         const id = req.params.id
         const object = await objectModel.getById(id)
-        const domain = "https://storage-service-s3.herokuapp.com"
+
         if(object.type == "file")
         {   
-            //const file = `${global.__basedir}/resources${object.path}`
-            const file = `${domain}${object.path}`
-            const result = res.download(file)
-            return res.json({
-                message: "download successfully",
-                data: file
+            res.download(`resources${object.path}`, object.name, function (err) {
+                if (err) {
+                    console.log(err)
+                    return next(err);
+                } else {
+                    
+                }
             })
         }
-        return res.json({
-            message: "Has error while download object"
-        })
+        else
+        {
+            res.json({
+                message: "Has error while download"
+            })
+        }
     }
 }

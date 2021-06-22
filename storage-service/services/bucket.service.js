@@ -103,6 +103,7 @@ module.exports = {
             //     "https://user-service-s3.herokuapp.com/api/v1/users/by-keys",
             //     { "privateToken": privateToken, "publicToken": publicToken }
             // );
+            console.log(req.body);
             console.log(privateToken)
             console.log(publicToken)
             console.log(users.data.permission);

@@ -41,6 +41,22 @@ module.exports = {
         return res.status(400).json({
             message: "fail"
         })
+    },
+
+    async downloadObject(req, res)
+    {
+        const id = req.params.id
+        const object = await objectModel.getById(id)
+        if(object.type == "file")
+        {   
+            const file = `${global.__basedir}/resources${object.path}`
+            const result = res.download(file)
+            return res.json({
+                message: "download successfully"
+            })
+        }
+        return res.json({
+            message: "Has error while download object"
+        })
     }
-    
 }

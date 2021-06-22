@@ -1,0 +1,23 @@
+{
+    "required": [
+      "publicToken",
+      "privateToken",
+      "file_type",
+      "user_id"
+    ],
+    "additionalProperties": true,
+    "properties": {
+      "publicToken": {
+        "type": "string"
+      },
+      "privateToken": {
+        "type": "string"
+      },
+      "file_type": {
+        "type": "string"
+      },
+      "user_id": {
+        "type": "string"
+      }
+    }
+  }

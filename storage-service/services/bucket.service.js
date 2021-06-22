@@ -91,7 +91,11 @@ module.exports = {
             const publicToken = req.body.publicToken || null
             const users = await axios.post("https://user-service-s3.herokuapp.com/api/v1/users/by-keys"
                                 , {privateToken: privateToken, publicToken: publicToken})
-            //if(users.statusCode ==)
+            if(users.permission == -1 || users.permission == 0)
+                return res.json({
+                    message: "User has not permission to upload "
+                })
+
             await uploadFile(req, res);
 
             if (req.file == undefined) {
